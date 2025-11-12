@@ -69,3 +69,144 @@ Děkuji za Váš dotaz. Rád Vám poskytnu stručný přehled nejdůležitějš�
     *   **ESP32-P4-EYE:** Tato deska je zaměřená na **kamerové aplikace** [46]. Obsahuje obvod LCD (podporující SPI displeje, např. ST7789), slot pro MicroSD kartu (podporuje 1-bit a 4-bit SD bus, SDIO nebo SPI protokol), obvod mikrofonu a Rotary Encoder [47, 48].
 
 Pokud Vám mohu pomoci s podrobnějšími detaily ke konkrétnímu modulu, dejte mi vědět!
+
+
+Pinout ESP32
+
+Silně vnímám Váš požadavek na **přesné určení pinoutu (rozložení pinů)** samotného čipu **ESP32-P4** (v balení QFN104), nikoli pinoutu vývojové desky. Děkuji za upřesnění.
+
+Níže uvádím kompletní rozpis pinů čipu ESP32-P4 podle čísel pinů, názvu pinu a jeho typu, čerpající přímo z tabulek a schémat v dokumentaci [1-17].
+
+Čip ESP32-P4 má celkem **105 pozic pinů** (včetně pinu 105, což je GND) a celkem **55 GPIO pinů** [18, 19].
+
+---
+
+## **Rozložení pinů čipu ESP32-P4 (QFN104)**
+
+Piny lze rozdělit do tří hlavních kategorií: **IO piny (včetně HP/LP GPIO), vyhrazené piny (Dedicated Interface Pins) a napájecí/analogové piny (Power/Analog Pins)** [20].
+
+### **I. IO piny (GPIO)**
+
+ESP32-P4 má celkem **55 GPIO pinů**, včetně 16 nízkoenergetických (LP) GPIO (GPIO0–GPIO15) a 39 vysoce výkonných (HP) GPIO (GPIO16–GPIO54) [19, 21].
+
+| Pin No. | Jméno pinu | Typ pinu | Napájecí doména | Poznámky ke funkcím (příklady) |
+| :------ | :--------- | :------- | :-------------- | :---------------------------------------- |
+| **1**   | **GPIO1**  | IO       | VDD\_LP/VDD\_BAT | IO MUX, LP IO MUX (LP\_GPIO1), Analog (XTAL\_32K\_P) [2, 11, 22] |
+| **2**   | **GPIO2**  | IO       | VDD\_LP/VDD\_BAT | IO MUX (MTCK), LP IO MUX (LP\_GPIO2), Analog (TOUCH\_CHANNEL1) [2, 11] |
+| **3**   | **GPIO3**  | IO       | VDD\_LP/VDD\_BAT | IO MUX (MTDI), LP IO MUX (LP\_GPIO3), Analog (TOUCH\_CHANNEL2) [2, 11] |
+| **4**   | **GPIO4**  | IO       | VDD\_LP         | IO MUX (MTMS), LP IO MUX (LP\_GPIO4), Analog (TOUCH\_CHANNEL3) [2, 11] |
+| **5**   | **GPIO5**  | IO       | VDD\_LP         | IO MUX (MTDO), LP IO MUX (LP\_GPIO5), Analog (TOUCH\_CHANNEL4) [2, 11] |
+| **6**   | **GPIO6**  | IO       | VDD\_LP         | IO MUX (SPI2\_HOLD\_PAD), LP IO MUX (LP\_GPIO6), Analog (TOUCH\_CHANNEL5) [2, 11] |
+| **7**   | **GPIO7**  | IO       | VDD\_LP         | IO MUX (SPI2\_CS\_PAD), LP IO MUX (LP\_GPIO7), Analog (TOUCH\_CHANNEL6) [2, 11] |
+| **8**   | **GPIO8**  | IO       | VDD\_LP         | IO MUX (SPI2\_D\_PAD), LP IO MUX (LP\_GPIO8), Analog (TOUCH\_CHANNEL7) [2, 11] |
+| **10**  | **GPIO9**  | IO       | VDD\_LP         | IO MUX (SPI2\_CK\_PAD), LP IO MUX (LP\_GPIO9), Analog (TOUCH\_CHANNEL8) [3, 11] |
+| **11**  | **GPIO10** | IO       | VDD\_LP         | IO MUX (SPI2\_Q\_PAD), LP IO MUX (LP\_GPIO10), Analog (TOUCH\_CHANNEL9) [3, 11] |
+| **12**  | **GPIO11** | IO       | VDD\_LP         | IO MUX (SPI2\_WP\_PAD), LP IO MUX (LP\_GPIO11), Analog (TOUCH\_CHANNEL10) [3, 11] |
+| **13**  | **GPIO12** | IO       | VDD\_LP         | LP IO MUX (LP\_GPIO12), Analog (TOUCH\_CHANNEL11) [3, 11] |
+| **14**  | **GPIO13** | IO       | VDD\_LP         | LP IO MUX (LP\_GPIO13), Analog (TOUCH\_CHANNEL12) [3, 11] |
+| **15**  | **GPIO14** | IO       | VDD\_LP         | LP IO MUX (LP\_UART\_TXD\_PAD/LP\_GPIO14), Analog (TOUCH\_CHANNEL13) [3, 11, 23] |
+| **16**  | **GPIO15** | IO       | VDD\_LP         | LP IO MUX (LP\_UART\_RXD\_PAD/LP\_GPIO15), Analog (TOUCH\_CHANNEL14) [3, 11, 23] |
+| **17**  | **GPIO16** | IO       | VDD\_IO\_0      | HP IO MUX, Analog (ADC1\_CHANNEL0) [4, 11, 24] |
+| **18**  | **GPIO17** | IO       | VDD\_IO\_0      | HP IO MUX, Analog (ADC1\_CHANNEL1) [4, 11] |
+| **19**  | **GPIO18** | IO       | VDD\_IO\_0      | HP IO MUX, Analog (ADC1\_CHANNEL2) [4, 11, 25] |
+| **20**  | **GPIO19** | IO       | VDD\_IO\_0      | HP IO MUX, Analog (ADC1\_CHANNEL3) [4, 11, 25] |
+| **22**  | **GPIO20** | IO       | VDD\_IO\_0      | HP IO MUX, Analog (ADC1\_CHANNEL4) [4, 11, 25] |
+| **23**  | **GPIO21** | IO       | VDD\_IO\_0      | HP IO MUX, Analog (ADC1\_CHANNEL5) [4, 11, 25] |
+| **24**  | **GPIO22** | IO       | VDD\_IO\_0      | HP IO MUX, Analog (ADC1\_CHANNEL6) [4, 11, 25] |
+| **25**  | **GPIO23** | IO       | VDD\_IO\_0      | HP IO MUX (REF\_50M\_CLK\_PAD), Analog (ADC1\_CHANNEL7) [4, 11, 25-27] |
+| **52**  | **GPIO24** | IO       | VDD\_IO\_4      | HP IO MUX, Analog (USB1P1\_N0 - USB D- signál pro USB OTG/JTAG) [6, 11, 25, 28-30] |
+| **53**  | **GPIO25** | IO       | VDD\_IO\_4      | HP IO MUX, Analog (USB1P1\_P0 - USB D+ signál pro USB OTG/JTAG) [6, 11, 25, 28-30] |
+| **55**  | **GPIO26** | IO       | VDD\_IO\_4      | HP IO MUX, Analog (USB1P1\_N1 - USB D- signál pro USB Full-Speed OTG) [7, 13, 25, 28-30] |
+| **56**  | **GPIO27** | IO       | VDD\_IO\_4      | HP IO MUX, Analog (USB1P1\_P1 - USB D+ signál pro USB Full-Speed OTG) [7, 13, 25, 28-30] |
+| **57**  | **GPIO28** | IO       | VDD\_IO\_4      | HP IO MUX (Může být multiplexován s periferiemi, např. SPI2) [7, 13] |
+| **58**  | **GPIO29** | IO       | VDD\_IO\_4      | HP IO MUX (Může být multiplexován s periferiemi, např. SPI2) [7, 13] |
+| **60**  | **GPIO30** | IO       | VDD\_IO\_4      | HP IO MUX (Může být multiplexován s periferiemi, např. SPI2) [7, 13] |
+| **61**  | **GPIO31** | IO       | VDD\_IO\_4      | HP IO MUX (Může být multiplexován s periferiemi, např. SPI2) [8, 13] |
+| **63**  | **GPIO32** | IO       | VDD\_IO\_4      | HP IO MUX (Může být multiplexován s periferiemi, např. SPI2) [8, 14] |
+| **64**  | **GPIO33** | IO       | VDD\_IO\_4      | HP IO MUX (Může být multiplexován s periferiemi, např. SPI2) [8, 14] |
+| **65**  | **GPIO34** | IO       | VDD\_IO\_4      | HP IO MUX (SPI2\_IO4\_PAD). **Strapping pin.** [8, 14, 31, 32] |
+| **66**  | **GPIO35** | IO       | VDD\_IO\_4      | HP IO MUX (SPI2\_IO5\_PAD). **Strapping pin.** [8, 14, 31, 32] |
+| **68**  | **GPIO36** | IO       | VDD\_IO\_4      | HP IO MUX (SPI2\_IO6\_PAD). **Strapping pin.** [8, 14, 31, 32] |
+| **69**  | **GPIO37** | IO       | VDD\_IO\_4      | HP IO MUX (UART0\_TXD\_PAD, SPI2\_IO7\_PAD). **Strapping pin.** [8, 14, 31-34] |
+| **70**  | **GPIO38** | IO       | VDD\_IO\_4      | HP IO MUX (UART0\_RXD\_PAD, SPI2\_DQS\_PAD). **Strapping pin.** [8, 14, 31-34] |
+| **80**  | **GPIO39** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA0\_PAD) [9, 15, 33] |
+| **81**  | **GPIO40** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA1\_PAD) [9, 15, 33] |
+| **82**  | **GPIO41** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA2\_PAD) [9, 15, 33] |
+| **83**  | **GPIO42** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA3\_PAD) [9, 15, 33] |
+| **84**  | **GPIO43** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CCLK\_PAD) [9, 15, 33] |
+| **86**  | **GPIO44** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CCMD\_PAD) [9, 15, 33] |
+| **87**  | **GPIO45** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA4\_PAD) [9, 15, 33] |
+| **88**  | **GPIO46** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA5\_PAD) [9, 15, 35] |
+| **89**  | **GPIO47** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA6\_PAD) [9, 16, 35] |
+| **90**  | **GPIO48** | IO       | VDD\_IO\_5      | HP IO MUX (SD1\_CDATA7\_PAD) [9, 16, 35] |
+| **92**  | **GPIO49** | IO       | VDD\_IO\_6      | HP IO MUX, Analog (ADC2\_CHANNEL0) [9, 16, 25] |
+| **93**  | **GPIO50** | IO       | VDD\_IO\_6      | HP IO MUX, Analog (ADC2\_CHANNEL1) [10, 16, 25] |
+| **94**  | **GPIO51** | IO       | VDD\_IO\_6      | HP IO MUX, Analog (ADC2\_CHANNEL2, ANA\_COMP0) [10, 16, 25, 27] |
+| **95**  | **GPIO52** | IO       | VDD\_IO\_6      | HP IO MUX, Analog (ADC2\_CHANNEL3, ANA\_COMP0) [10, 16, 25, 27] |
+| **97**  | **GPIO53** | IO       | VDD\_IO\_6      | HP IO MUX, Analog (ADC2\_CHANNEL4, ANA\_COMP1) [10, 16, 25, 27] |
+| **98**  | **GPIO54** | IO       | VDD\_IO\_6      | HP IO MUX, Analog (ADC2\_CHANNEL5, ANA\_COMP1) [10, 16, 25, 27] |
+| **104** | **GPIO0**  | IO       | VDD\_LP/VDD\_BAT | IO MUX (GPIO0), LP IO MUX (LP\_GPIO0), Analog (XTAL\_32K\_N) [10, 11] |
+
+### **II. Vyhrazené piny rozhraní (Dedicated Interface Pins)**
+
+Tyto piny nelze použít pro všeobecné IO (General-purpose IO) [20, 36].
+
+| Pin No. | Jméno pinu | Typ pinu | Napájecí doména | Popis funkce |
+| :------ | :--------- | :------- | :-------------- | :----------- |
+| **27**  | **FLASH\_CS** | Dedicated | VDD\_FLASHIO | Chip select pro externí Flash [4, 11, 37] |
+| **28**  | **FLASH\_Q** | Dedicated | VDD\_FLASHIO | Datový výstup Flash [4, 11, 37] |
+| **29**  | **FLASH\_WP** | Dedicated | VDD\_FLASHIO | Write protect pro Flash [4, 11, 37] |
+| **31**  | **FLASH\_HOLD**| Dedicated | VDD\_FLASHIO | Hold pro Flash [5, 11, 37] |
+| **32**  | **FLASH\_CK** | Dedicated | VDD\_FLASHIO | Clock pro Flash [5, 11, 37] |
+| **33**  | **FLASH\_D** | Dedicated | VDD\_FLASHIO | Datový vstup Flash [5, 11, 37] |
+| **34**  | **DSI\_REXT** | Dedicated | VDD\_MIPI\_DPHY | MIPI DSI PHY 4.02 kΩ EXTERNAL RESISTOR [5, 37] |
+| **35**  | **DSI\_DATAP1**| Dedicated | VDD\_MIPI\_DPHY | MIPI DSI PHY DATAP1 [5, 38] |
+| **36**  | **DSI\_DATAN1**| Dedicated | VDD\_MIPI\_DPHY | MIPI DSI PHY DATAN1 [5, 38] |
+| **37**  | **DSI\_CLKN** | Dedicated | VDD\_MIPI\_DPHY | MIPI DSI PHY CLKN [5, 38] |
+| **38**  | **DSI\_CLKP** | Dedicated | VDD\_MIPI\_DPHY | MIPI DSI PHY CLKP [5, 38] |
+| **39**  | **DSI\_DATAP0**| Dedicated | VDD\_MIPI\_DPHY | MIPI DSI PHY DATAP0 [5, 38] |
+| **40**  | **DSI\_DATAN0**| Dedicated | VDD\_MIPI\_DPHY | MIPI DSI PHY DATAN0 [5, 38] |
+| **42**  | **CSI\_DATAN0**| Dedicated | VDD\_MIPI\_DPHY | MIPI CSI PHY DATAN0 [6, 38] |
+| **43**  | **CSI\_DATAP0**| Dedicated | VDD\_MIPI\_DPHY | MIPI CSI PHY DATAP0 [6, 38] |
+| **44**  | **CSI\_CLKP** | Dedicated | VDD\_MIPI\_DPHY | MIPI CSI PHY CLKP [6, 38] |
+| **45**  | **CSI\_CLKN** | Dedicated | VDD\_MIPI\_DPHY | MIPI CSI PHY CLKN [6, 38] |
+| **46**  | **CSI\_DATAN1**| Dedicated | VDD\_MIPI\_DPHY | MIPI CSI PHY DATAN1 [6, 12, 38] |
+| **47**  | **CSI\_DATAP1**| Dedicated | VDD\_MIPI\_DPHY | MIPI CSI PHY DATAP1 [6, 12, 38] |
+| **48**  | **CSI\_REXT** | Dedicated | VDD\_MIPI\_DPHY | MIPI CSI PHY 4.02 kΩ EXTERNAL RESISTOR [6, 38] |
+| **49**  | **USB\_DM** | Dedicated | VDD\_USBPHY | USB2 OTG PHY DM (USB D- High-Speed) [6, 38] |
+| **50**  | **USB\_DP** | Dedicated | VDD\_USBPHY | USB2 OTG PHY DP (USB D+ High-Speed) [6, 38] |
+| **54**  | **NC**          | —        | —               | Nezapojeno (Not Connected) [6] |
+
+### **III. Napájecí a Analogové piny**
+
+Tyto piny dodávají napájení různým částem čipu nebo zajišťují klíčové analogové a řídicí funkce.
+
+| Pin No. | Jméno pinu | Typ pinu | Funkce | Rozsah napětí (pokud je uveden) |
+| :------ | :--------- | :------- | :----- | :----------------------------- |
+| **9**   | **VDD\_LP** | Power    | Napájení LP IO (Vcc\_LP) [3, 39] | 3.0 V ~ 3.6 V [39] |
+| **21**  | **VDD\_IO\_0**| Power    | Napájení HP IO [4, 39] | 1.65–1.95 V / 3.0–3.6 V [39] |
+| **26**  | **VDD\_HP\_0**| Power    | Digitální napájení HP systému [4] | 0.99 V ~ 1.3 V [40] |
+| **30**  | **VDD\_FLASHIO**| Power    | Napájení IO pro Flash/PSRAM [5, 41] | 1.65–1.95 V / 3.0–3.6 V [41] |
+| **41**  | **VDD\_MIPI\_DPHY**| Power    | Napájení MIPI DPHY [5] | - |
+| **51**  | **VDD\_USBPHY**| Power    | Napájení USB PHY [6] | - |
+| **59**  | **VDD\_PSRAM\_0**| Power    | Napájení PSRAM IO [7, 41] | 1.65 V ~ 1.95 V [41] |
+| **62**  | **VDD\_IO\_4**| Power    | Napájení HP IO [8, 42] | 1.65–1.95 V / 3.0–3.6 V [39] |
+| **67**  | **VDD\_PSRAM\_1**| Power    | Napájení PSRAM IO [8, 41, 42] | 1.65 V ~ 1.95 V [41] |
+| **71**  | **VDDO\_FLASH**| Power    | Výstupní napětí pro externí Flash (regulační výstup VO1) [8, 42, 43] | - |
+| **72**  | **VDDO\_PSRAM**| Power    | Výstupní napětí pro in-package/off-package PSRAM (regulační výstup VO2) [8, 42, 43] | - |
+| **73**  | **VDDO\_3** | Power    | Výstupní napětí regulátoru (VO3) [8, 42, 43] | - |
+| **74**  | **VDDO\_4** | Power    | Výstupní napětí regulátoru (VO4) [8, 42, 43] | - |
+| **75**  | **VDD\_LDO** | Power    | Napájení pro LDOs (Analogová doména) [8, 40, 42] | 3.0 V ~ 3.6 V [40] |
+| **76**  | **VDD\_HP\_2**| Power    | Digitální napájení HP systému [8] | 0.99 V ~ 1.3 V [40] |
+| **77**  | **VDD\_DCDCC**| Power    | Napájení pro DC/DC (Analogová doména) [8, 40, 42] | 3.0 V ~ 3.6 V [40] |
+| **78**  | **FB\_DCDC** | Analog   | Feedback pro DC/DC konvertor [9] | - |
+| **79**  | **EN\_DCDC** | Analog   | Enable pro DC/DC konvertor [9] | - |
+| **85**  | **VDD\_IO\_5**| Power    | Napájení HP IO [9, 39] | 1.65–1.95 V / 3.0–3.6 V [39] |
+| **91**  | **VDD\_HP\_3**| Power    | Digitální napájení HP systému [9] | 0.99 V ~ 1.3 V [40] |
+| **96**  | **VDD\_IO\_6**| Power    | Napájení HP IO [10, 39] | 1.65–1.95 V / 3.0–3.6 V [39] |
+| **99**  | **XTAL\_N** | Analog   | Krystalový oscilátor (Negativní svorka) [10] | - |
+| **100** | **XTAL\_P** | Analog   | Krystalový oscilátor (Pozitivní svorka) [10] | - |
+| **101** | **VDD\_ANA** | Power    | Analogové napájení [10] | - |
+| **102** | **VDD\_BAT** | Power    | Bateriová doména (záložní napájení) [10] | - |
+| **103** | **CHIP\_PU** | Analog   | Povolení/Reset čipu (Power-Up) [10, 44, 45] | - |
+| **105** | **GND** | Power    | Zem [10] | - |
