@@ -1,0 +1,71 @@
+Děkuji za Váš dotaz. Rád Vám poskytnu stručný přehled nejdůležitějších informací, seřazených tematicky z dostupných zdrojů, abyste získal ucelený pohled na klíčové vlastnosti ESP32-P4.
+
+## **Stručný přehled důležitých informací ESP32-P4**
+
+### **I. Přehled produktu a aplikace**
+
+*   **Produktové vlastnosti:** ESP32-P4 je systém na čipu (SoC), který integruje **vysoce výkonnou MCU** s 32bitovým **duálním nebo jednojádrovým procesorem RISC-V** [1]. Je navržen s **výkonnými schopnostmi zpracování obrazu a hlasu** [1].
+*   **Paměť:** Obsahuje 16 MB nebo 32 MB PSRAM integrované v pouzdře čipu [1].
+*   **Využití:** Mezi doporučené aplikace patří servisní roboti, multimediální přehrávače, kamery pro streamování videa, terminály pro chytrou hlasovou interakci, Edge Vision AI procesory a HMI ovládací panely [2].
+*   **Fyzické provedení:** Čip je dostupný v pouzdře QFN104 (10×10 mm) [3].
+
+---
+
+### **II. Architektura CPU a paměťový systém**
+
+*   **Vysokovýkonné CPU (HP CPU):** Jedná se o **32bitový RISC-V duální procesor** [4]. Využívá **pětistupňovou pipeline** a podporuje taktovací frekvenci **až 360 MHz** [4].
+*   **Nízkoenergetické CPU (LP CPU):** Jádro s nízkoenergetickým provozem je také k dispozici [5]. LP CPU může přistupovat k HP periferiím, systémové paměti, LP periferiím a LP RAM [6]. HP a LP napájecí domény mohou být zapínány a vypínány nezávisle [6].
+*   **Cache:** Čip používá **dvouúrovňovou cache** [7].
+    *   L1 instrukční cache: 16 KB (čtyřcestná) [7].
+    *   L1 datová cache: 64 KB (dvoucestná, podporuje write-through a write-back) [7].
+    *   L2 cache: 128 KB, 256 KB nebo 512 KB (osmicestná) [7].
+*   **eFuse Controller:** Paměť eFuse je organizována do 11 bloků (BLOCK0 až BLOCK10) a obsahuje parametry pro software a hardware, jako jsou bezpečnostní klíče a konfigurace [8, 9].
+
+---
+
+### **III. Přenos dat a systémové komponenty**
+
+*   **Systémové DMA:** ESP32-P4 zahrnuje **GDMA Controller** (AHB a AXI), **VDMA Controller** a **2D-DMA Controller** [10].
+    *   **GDMA** zvládá přenosy mezi pamětí a pamětí nebo pamětí a periferiemi (RX/TX) [11].
+    *   **VDMA** (Video DMA) je navržen pro datové přenosy pro periferie jako MIPI DSI a ISP [12].
+    *   **2D-DMA** podporuje **přeskupování makrobloků** (Macroblock reordering) a **konverzi barevných prostorů** [11].
+*   **ETM (Event Task Matrix):** Umožňuje komplexní interakce propojením událostí (jako je překročení časovače nebo změna střídy) s úlohami (jako je nastavení nebo vymazání GPIO) [13, 14].
+*   **Sledování provádění (Trace Encoder):** RISC-V Trace Encoder komprimuje informace o instrukcích HP CPU do paketů a ukládá je do interní SRAM pro účely debugování [15].
+*   **Správa napájení:** **Nízkoenergetická správa** (Low-Power Management) řídí komponenty související se spotřebou energie [10, 16]. Bateriová doména (VDD_BAT) slouží jako záložní napájení pro LP systém, pokud je externí napájení (VDD_ANA) vypnuto [16].
+*   **Reset a Hodiny:** Systém zahrnuje správu Resetu a Clocků (HP System Clock, LP System Clock, Peripheral Clocks) [10, 17].
+
+---
+
+### **IV. I/O a Periferie**
+
+*   **Piny a IO MUX:** Čip má 55 GPIO [1]. Piny jsou rozděleny na IO piny (zahrnující HP GPIO a LP GPIO), Dedikované piny rozhraní (např. pro flash, MIPI DSI/CSI) a Napájecí piny [2, 5, 18]. **LP IO MUX** umožňuje multiplexování signálů do jednoho pinu během režimu Deep-sleep, kde je napájen z VDD_LP nebo VDD_BAT [19].
+*   **Analogové funkce:** Podporuje **Dotykový senzor** (Touch Sensor), **Teplotní senzor** (TSENS), **ADC Controller** (ADC) a **Analogový napěťový komparátor** [20-22].
+*   **Zpracování obrazu a hlasu:**
+    *   **Obraz:** Zahrnuje akcelerátory jako **JPEG Codec** [23], **Image Signal Processor (ISP)** (s funkcemi pro korekci obrazu a statistiku, jako je AE, AF, AWB) [23, 24], a **Pixel-Processing Accelerator (PPA)** (pro Scaling-Rotation-Mirroring a Layer Blending) [23, 25]. Má také **LCD a Camera Controller** (LCD_CAM) a rozhraní **MIPI CSI/DSI** [23].
+    *   **Hlas:** Zahrnuje modul **Voice Activity Detection (VAD)** [20, 26].
+*   **Konektivita:** Čip podporuje širokou škálu komunikačních rozhraní, včetně [27]:
+    *   **USB:** USB 2.0 High-Speed OTG, USB 2.0 Full-Speed OTG a USB Serial/JTAG [27-29].
+    *   **Sítě:** Ethernet Media Access Controller (EMAC) [27, 30].
+    *   **Sériová komunikace:** UART, SPI, I2C, Analog I2C, I3C, I2S a LP I2S [27].
+    *   **Další periferie:** SD/MMC Host Controller (SDHOST), Two-Wire Automotive Interface (TWAI), LED PWM Controller (LEDC), Motor Control PWM (MCPWM), Remote Control Peripheral (RMT) a Parallel IO Controller (PARLIO) [27].
+
+---
+
+### **V. Kryptografie a zabezpečení**
+
+*   **Hardwarové akcelerátory:** K dispozici je řada akcelerátorů pro kryptografické operace a zabezpečení [23, 31]:
+    *   **Šifrování:** AES Accelerator (podporuje režimy jako GCM, CBC, CTR) [8, 32], External Memory Encryption and Decryption (XTS_AES) [33].
+    *   **Asymetrická kryptografie:** ECC Accelerator (Elliptic Curve Cryptography) [34, 35], RSA Accelerator (Modular Exponentiation, Multiplication) [34, 36].
+    *   **Digitální podpisy a autentizace:** DSA (Digital Signature Algorithm) [37, 38], ECDSA (Elliptic Curve Digital Signature Algorithm) [33, 38], HMAC Accelerator (Message Authentication) [34, 39], SHA Accelerator (Hash Algorithm) [37, 40].
+    *   **Generátor náhodných čísel (RNG)** [33].
+
+---
+
+### **VI. Pokyny pro návrh hardwaru a vývojové sady**
+
+*   **Doporučení pro napájení (Hardware Design Guidelines):** Pro jediné napájení je doporučeno napětí **3.3 V** [41]. Bez externích periferií vyžaduje ESP32-P4 minimální napájecí proud **430 mA** [42].
+*   **Rozhraní pro vývoj:**
+    *   **ESP32-P4-Function-EV-Board:** Tato vývojová deska vyvádí všechny dostupné GPIO piny do header bloku J1 a obsahuje MIPI CSI konektor a Buck DC-DC konvertor pro napájení VDD_HP [43-45].
+    *   **ESP32-P4-EYE:** Tato deska je zaměřená na **kamerové aplikace** [46]. Obsahuje obvod LCD (podporující SPI displeje, např. ST7789), slot pro MicroSD kartu (podporuje 1-bit a 4-bit SD bus, SDIO nebo SPI protokol), obvod mikrofonu a Rotary Encoder [47, 48].
+
+Pokud Vám mohu pomoci s podrobnějšími detaily ke konkrétnímu modulu, dejte mi vědět!
